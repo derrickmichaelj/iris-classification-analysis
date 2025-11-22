@@ -1,4 +1,4 @@
-name: cost_of_living_env
+name: 522_group_project_env
 channels:
   - conda-forge
 dependencies:
