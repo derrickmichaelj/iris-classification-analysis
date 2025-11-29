@@ -1,0 +1,12 @@
+services:
+  dockerlock:
+    image: derrickj11/dsci-522-group-project:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/home/jovyan/work
+    working_dir: /work
+    container_name: dsci522_jupyter
+    environment:
+      - JUPYTER_TOKEN=dsci522
+    command: start-notebook.py
