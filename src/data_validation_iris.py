@@ -1,7 +1,7 @@
 import pandas as pd
 import pandera.pandas as pa
 from pandera.pandas import Column, DataFrameSchema, Check
-
+import numpy as np
 
 iris_schema = DataFrameSchema(
     {
@@ -78,7 +78,39 @@ def validate_iris_dataframe(df: pd.DataFrame):
     print("Correlation check (features vs target) passed.")
 
     #No anomalous correlations between features
-    #Arya Complete this please
+
+    corr_matrix = df_validated[numeric_cols].corr().abs()
+
+    upper = corr_matrix.where(
+        np.triu(np.ones(corr_matrix.shape), k=1).astype(bool)
+    )
+
+    high_corr_pairs = []
+    threshold = 0.95
+
+    for col_i in numeric_cols:
+        for col_j in numeric_cols:
+            if col_i == col_j:
+                continue
+            corr_val = upper.loc[col_i, col_j]
+            if pd.notna(corr_val) and corr_val > threshold:
+                high_corr_pairs.append((col_i, col_j, corr_val))
+
+    if high_corr_pairs:
+        msg_lines = [
+            f"[WARNING] High correlations between features detected (|corr| > {threshold}):"
+        ]
+        for col_i, col_j, corr_val in sorted(high_corr_pairs, key=lambda x: -x[2]):
+            msg_lines.append(f"  - {col_i} & {col_j}: corr = {corr_val:.3f}")
+
+        msg_lines.append(
+            "This is a warning only — continuing the analysis (no error raised)."
+        )
+
+        print("\n".join(msg_lines))
+
+    else:
+        print("Correlation check (feature vs feature) passed.")
 
 
     print("=== IRIS DATA VALIDATION — ALL CHECKS PASSED ===\n")

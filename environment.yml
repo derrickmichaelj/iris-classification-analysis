@@ -6,7 +6,13 @@ dependencies:
   - pandas
   - numpy
   - scikit-learn
+  - scipy
   - matplotlib
   - seaborn
-  - jupyter
+  - altair
+  - pandera
+  - jupyterlab
   - ipykernel
+  - pip
+  - pip:
+      - ucimlrepo
