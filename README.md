@@ -78,6 +78,20 @@ These checks run automatically at the beginning of the analysis pipeline.
 
 To ensure consistency for all collaborators and graders, the project provides a Docker‑based environment.
 
+### Using the Container
+
+Run the following lines to pull and run the container:
+
+`docker pull derrickj11/dsci-522-group-project:latest`
+`docker run -it --rm derrickj11/dsci-522-group-project:latest`
+
+### Updating the Container
+
+1. Add new dependencies to the `environment.yml` file and push to a new branch in the repository
+2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file
+3. Update the Dockerfile locally and test it to make sure that it bulds/runs properly
+4. Push these changes to your branch, the updated Docker image will then be created and pushed to DockerHub automatically
+5. Create a pull request to merge the changes into the main branch
 
 ## Local Development
 
@@ -114,6 +128,12 @@ reports/iris_classification.ipynb
 - docker  
 
 All managed via: `environment.yml`, `conda-lock.yml`, and Docker.
+
+---
+
+## Licenses
+
+- MIT License
 
 ---
 
