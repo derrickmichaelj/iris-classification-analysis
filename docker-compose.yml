@@ -1,6 +1,6 @@
 services:
   dockerlock:
-    image: derrickj11/dsci-522-group-project:latest
+    image: derrickj11/dsci-522-group-project:1c69433
     ports:
       - "8888:8888"
     volumes:
