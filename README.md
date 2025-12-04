@@ -182,8 +182,13 @@ Access JupyterLab at http://localhost:8888. To stop the container, press Ctrl+C 
 
 Open Docker Desktop then run the following lines in your console to pull and run the container:
 
-`docker pull derrickj11/dsci-522-group-project:latest`
-`docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest`
+```bash
+#Run the code below in CLI 
+docker pull derrickj11/dsci-522-group-project:latest
+
+#Upon pulling the image, run: 
+docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
+```
 
 ### Updating the Container
 
@@ -203,7 +208,9 @@ If you prefer to run the project without Docker, you can set up the environment 
 
 ### Setup Instructions
 
-#### 1.Clone the Repository and Checkout Branch:
+#### 1. Clone the Repository and Checkout Branch: 
+
+Using CLI, in your desired folder: 
 
 ```bash
 git clone https://github.com/derrickmichaelj/dsci-522-group-project.git
