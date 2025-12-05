@@ -4,7 +4,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - ./dsci-522-group-project:/work
+      - ./:/work
     working_dir: /work
     container_name: dsci522_jupyter
     environment:
