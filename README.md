@@ -150,12 +150,15 @@ CMD ["conda", "run", "-n", "522_group_project_env", "jupyter", "lab", \
 Option 1: Run Pre-Built Image (Fastest)
 Pull the image directly from DockerHub and run the container, which will start JupyterLab on port 8888.
 
-```
+Open Docker Desktop then run the following lines in your console to pull and run the container:
+
+```bash
 # 1. Pull the official, pre-built image
 docker pull derrickj11/dsci-522-group-project:latest
 
 # 2. Run the container. The '--rm' flag ensures it is cleaned up upon exit.
 # The '-p 8888:8888' maps the container's JupyterLab port to your host machine's port.
+#Upon pulling the image, run: 
 docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
 
 ```
@@ -177,18 +180,6 @@ docker-compose up
 ```
 
 Access JupyterLab at http://localhost:8888. To stop the container, press Ctrl+C in the terminal where docker-compose up is running.
-
-### Using the Container
-
-Open Docker Desktop then run the following lines in your console to pull and run the container:
-
-```bash
-#Run the code below in CLI 
-docker pull derrickj11/dsci-522-group-project:latest
-
-#Upon pulling the image, run: 
-docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
-```
 
 ### Updating the Container
 
