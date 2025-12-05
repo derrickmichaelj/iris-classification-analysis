@@ -8,5 +8,5 @@ services:
     working_dir: /work
     container_name: dsci522_jupyter
     environment:
-      - JUPYTER_TOKEN=dsci522
+      PASSWORD: dsci522
     command: start-notebook.py
