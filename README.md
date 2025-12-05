@@ -93,61 +93,28 @@ To ensure consistency for all collaborators and graders, the project provides a 
 
 You must have Docker Desktop installed and running on your system.
 
-## DockerFile
-
-```bash
-# Stage 1: Use a minimal Conda image as the base
-# We choose miniconda3 for a lighter image size.
-FROM continuumio/miniconda3:24.3.0-0
-
-# Set a non-root user for security best practices (optional but recommended)
-# We will still run commands as root during the build for installation.
-
-# 1. Set environment variables
-ENV CONDA_DIR=/opt/conda \
-    PATH=$CONDA_DIR/bin:$PATH \
-    JUPYTER_PORT=8888
-
-# 2. Set the working directory inside the container
-WORKDIR /app
-
-# 3. Copy the Conda lock file and environment definition
-# Using the lock file (conda-lock.yml) ensures identical dependencies across builds.
-COPY conda-lock.yml environment.yml ./
-
-# 4. Install the Conda environment using the lock file
-# We use 'explicit' to list exact package versions, and 'quiet' to reduce build output.
-# The 'mamba' solver is much faster than 'conda' if available, but 'conda' is standard in the base image.
-RUN conda update -n base conda -y && \
-    conda env create --name 522_group_project_env --file conda-lock.yml --quiet && \
-    conda clean --all -f -y
-
-# 5. Activate the environment for subsequent commands
-# This ensures that all following RUN commands use the installed environment packages.
-SHELL ["conda", "run", "-n", "522_group_project_env", "/bin/bash", "-c"]
-
-# 6. Copy all project files into the container's working directory (/app)
-# This includes the source code, reports, and data (if any small, committed data).
-# Note: Sensitive or large data files should be volume mounted, not copied.
-COPY . .
-
-# 7. Expose the port for JupyterLab
-EXPOSE $JUPYTER_PORT
-
-# 8. Define the default command to run when the container starts
-# This launches JupyterLab, making it listen on all interfaces (0.0.0.0) and uses the token
-# to ensure secure access.
-CMD ["conda", "run", "-n", "522_group_project_env", "jupyter", "lab", \
-     "--ip=0.0.0.0", \
-     "--port=8888", \
-     "--no-browser", \
-     "--allow-root", \
-     "--NotebookApp.token='dsci522'"] # Set a simple, predictable token for easy access
-```
 
 ## How to Run the container 
 
-Option 1: Run Pre-Built Image (Fastest)
+Option: Start the analysis environment using Docker Compose
+
+```bash 
+# Instead of pulling and running the image manually, use:
+docker compose up
+
+#After running docker compose up, the terminal will display a link that looks like:
+(http://127.0.0.1:8888/lab?token=...)
+
+#Click this link, or copy and paste it into your web browser.
+
+#Enter the password/token (if prompted)
+#When JupyterLab loads, it may ask for a password or token.
+#Use the token `dsci522`
+
+Password or Token:   
+```
+
+Option 2: Run Pre-Built Image (Fastest)
 Pull the image directly from DockerHub and run the container, which will start JupyterLab on port 8888.
 
 Open Docker Desktop then run the following lines in your console to pull and run the container:
@@ -164,7 +131,7 @@ docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
 ```
 Once the container is running, open your web browser and navigate to the printed URL (usually http://127.0.0.1:8888/lab?token=...).
 
-Option 2: Build and Run Locally (For Developers)
+Option 3: Build and Run Locally (For Developers)
 If you need to ensure the build process or have made changes to the Dockerfile, use the docker-compose.yml file.
 
 ```bash
