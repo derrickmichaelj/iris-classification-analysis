@@ -96,9 +96,11 @@ You must have Docker Desktop installed and running on your system.
 
 ## How to Run the container 
 
-Option: Start the analysis environment using Docker Compose
+Option 1: Start the analysis environment using Docker Compose
 
-```bash 
+```bash
+# Open terminal and enter the project directory
+
 # Instead of pulling and running the image manually, use:
 docker compose up
 
@@ -106,12 +108,6 @@ docker compose up
 (http://127.0.0.1:8888/lab?token=...)
 
 #Click this link, or copy and paste it into your web browser.
-
-#Enter the password/token (if prompted)
-#When JupyterLab loads, it may ask for a password or token.
-#Use the token `dsci522`
-
-Password or Token:   
 ```
 
 Option 2: Run Pre-Built Image (Fastest)
