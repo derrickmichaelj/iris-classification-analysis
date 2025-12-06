@@ -1,0 +1,630 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Infering Relationships Between Iris Species and their Characteristics},
+  pdfauthor={Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick Jaskiel},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Infering Relationships Between Iris Species and their
+Characteristics}
+\author{Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick
+Jaskiel}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of Contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\section{Summary}\label{summary}
+
+The Iris dataset consists of 150 samples of iris flowers, divided evenly
+into three species: setosa, versicolor, and virginica (50 samples each).
+Each observation contains four continuous morphological measurements:
+\texttt{sepal\_length}, \texttt{sepal\_width}, \texttt{petal\_length},
+and \texttt{petal\_width}. All four features are recorded in
+centimetres. The dataset is well structured, with no missing values, and
+includes a balanced class distribution across the three species. A
+preliminary summary of the numerical features shows that values vary
+substantially between species; for example, setosa flowers tend to have
+smaller petal lengths (around 1.4 cm), while virginica flowers exhibit
+much larger petal dimensions. These clear differences suggest that the
+dataset is suitable for classification tasks, making it an ideal test
+case for evaluating machine learning models. In this project, we have
+developed a classification model using \textbf{Logistic Regression} to
+predict Iris flower species. based on four measurements: sepal length,
+sepal width, petal length, and petal width. A baseline
+\textbf{DummyClassifier} produced an accuracy of approximately
+\texttt{0.33} across cross-validation folds, confirming that the data is
+not trivially predictable and that a more sophisticated model is
+required. Before training the model, all numerical features were scaled
+using StandardScaler, ensuring that differences in measurement units did
+not disproportionately influence the classifier. After scaling features
+and performing hyperparameter tuning weith randomized search, our final
+\textbf{Logistic Regression classifier} achieved strong performance,
+with a training accuracy of \texttt{0.983} and a test accuracy of
+\texttt{0.90}. The confusion matrix indicates that the most predicitons
+were correct, with only a small number of misclassifications occuring
+between the \textbf{versicolor} and \textbf{virginica} classes
+reflectiong their natural feature similarity. Overall, the model
+demostrated high predicive performance on unseen data, though further
+refinement or more advnaced model could help reduce raiming
+classification overlap.
+
+\section{Introduction}\label{introduction}
+
+A thorough understanding of the geographic distribution and traits of
+plants is invaluable to the development of sustainable agriculture and
+biodiversity conservation (Joly et al. (2014)). Thus, as the demand for
+information and need for biodiversity grow, it becomes even more
+important that this task is one that can be performed efficiently and
+accurately (Thyagharajan and Kiruba Raji (2018)). One promising method
+through which this could be accomplished is machine learning
+classification.
+
+The goal of this project is to explore how different physical
+measurements of iris flowers relate to species identity and to build a
+classification model that can accurately predict species based on these
+characteristics. The Iris dataset is a well-known benchmark in machine
+learning because it is clean, balanced, and contains clear biological
+differences among species. Each flower is described by four continuous
+measurements---sepal length, sepal width, petal length, and petal
+width---and belongs to one of three species: setosa, versicolor, or
+virginica.
+
+Because these measurements reflect real morphological differences, the
+dataset provides a natural opportunity to study the relationship between
+flower structure and species classification. It also allows us to
+evaluate and compare machine learning models in a controlled
+environment. In this project, we perform exploratory data analysis to
+understand feature distributions and correlations, then develop a
+predictive model using Logistic Regression. We also include a
+DummyClassifier as a baseline to ensure that model performance
+improvements are meaningful rather than accidental.
+
+Finally, we evaluate the model using cross-validation, hyperparameter
+tuning, and confusion-matrix diagnostics. This approach allows us to
+understand both how well the model learns from the training data and how
+reliably it generalizes to unseen samples. Overall, this project
+demonstrates the connection between biological measurements and species
+identity while providing a clear example of building, tuning, and
+interpreting a supervised classification model.
+
+\section{Methods}\label{methods}
+
+\subsection{Data}\label{data}
+
+The dataset used in this project is the classic Iris flower dataset
+originally collected by the British statistician and biologist Ronald A.
+Fisher in 1936 as part of his research on linear discriminant analysis.
+It is publicly available through the UCI Machine Learning Repository,
+where it is widely used as a benchmark dataset for classification tasks.
+Each row in the dataset represents physical measurements of a single
+iris flower, including four numerical attributes sepal length, sepal
+width, petal length, and petal width recorded in centimetres. Alongside
+these measurements, each observation is labelled with one of three
+species (Iris setosa, Iris versicolor, or Iris virginica), originally
+identified by botanists through morphological characteristics. This
+dataset is clean, balanced, and well-suited for evaluating machine
+learning classification algorithms.
+
+\subsection{Analysis}\label{analysis}
+
+In this step, we load the Iris dataset from an online source into a
+pandas DataFrame. We check for missing values to ensure the dataset is
+complete, view the first and last few rows to get a sense of the data
+structure, and look at the shape and data types to understand what kind
+of data we are working with.
+
+\begin{verbatim}
+
+=== RUNNING IRIS DATA VALIDATION CHECKS ===
+Data loaded as pandas DataFrame.
+Duplicate check passed (duplicates removed if present).
+Schema validation passed.
+Outlier check passed.
+Species category level check passed (unknown categories removed if present).
+Target Distribution check passed
+Correlation check (features vs target) passed.
+Correlation check (feature vs feature) passed.
+=== IRIS DATA VALIDATION — ALL CHECKS PASSED ===
+\end{verbatim}
+
+\begin{verbatim}
+sepal_length    0
+sepal_width     0
+petal_length    0
+petal_width     0
+species         0
+dtype: int64
+\end{verbatim}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule\noalign{}
+& sepal\_length & sepal\_width & petal\_length & petal\_width &
+species \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 5.1 & 3.5 & 1.4 & 0.2 & setosa \\
+1 & 4.9 & 3.0 & 1.4 & 0.2 & setosa \\
+2 & 4.7 & 3.2 & 1.3 & 0.2 & setosa \\
+3 & 4.6 & 3.1 & 1.5 & 0.2 & setosa \\
+4 & 5.0 & 3.6 & 1.4 & 0.2 & setosa \\
+\end{longtable}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule\noalign{}
+& sepal\_length & sepal\_width & petal\_length & petal\_width &
+species \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+145 & 6.7 & 3.0 & 5.2 & 2.3 & virginica \\
+146 & 6.3 & 2.5 & 5.0 & 1.9 & virginica \\
+147 & 6.5 & 3.0 & 5.2 & 2.0 & virginica \\
+148 & 6.2 & 3.4 & 5.4 & 2.3 & virginica \\
+149 & 5.9 & 3.0 & 5.1 & 1.8 & virginica \\
+\end{longtable}
+
+\begin{verbatim}
+(149, 5)
+\end{verbatim}
+
+\begin{verbatim}
+sepal_length    float64
+sepal_width     float64
+petal_length    float64
+petal_width     float64
+species          object
+dtype: object
+\end{verbatim}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+& sepal\_length & sepal\_width & petal\_length & petal\_width \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+count & 149.000000 & 149.000000 & 149.000000 & 149.000000 \\
+mean & 5.843624 & 3.059732 & 3.748993 & 1.194631 \\
+std & 0.830851 & 0.436342 & 1.767791 & 0.762622 \\
+min & 4.300000 & 2.000000 & 1.000000 & 0.100000 \\
+25\% & 5.100000 & 2.800000 & 1.600000 & 0.300000 \\
+50\% & 5.800000 & 3.000000 & 4.300000 & 1.300000 \\
+75\% & 6.400000 & 3.300000 & 5.100000 & 1.800000 \\
+max & 7.900000 & 4.400000 & 6.900000 & 2.500000 \\
+\end{longtable}
+
+\subsubsection{Data validation checks}\label{data-validation-checks}
+
+\begin{itemize}
+\item
+  Correct data file format
+\item
+  Correct column names as per schema
+\item
+  No empty observations
+\item
+  Missingness within expected thresholds
+\item
+  Correct data types for each column
+\item
+  No duplicate observations
+\item
+  Values within expected ranges / valid categories
+\end{itemize}
+
+\subsubsection{Insights from Data}\label{insights-from-data}
+
+From the above code cells, we can see:
+
+\begin{itemize}
+\item
+  The dataset has 150 rows and 5 columns.
+\item
+  There are no missing values, so the data is complete.
+\item
+  The dataset contains three species: Setosa, Versicolor, and Virginica.
+\item
+  Petal measurements show the strongest separation between species.
+\item
+  Setosa is clearly distinct, while Versicolor and Virginica overlap
+  somewhat.
+\item
+  Sepal measurements show smaller differences and are less useful for
+  distinguishing species.
+\end{itemize}
+
+\subsubsection{Scatter plot}\label{scatter-plot}
+
+This plot shows how the species are separated based on petal
+measurements. The three species form distinct clusters, indicating that
+these two features are good for classification. It also shows that
+Setosa is well-separated, while Versicolor and Virginica have some
+overlap.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{../results/figures/scatter_petal.png}
+
+}
+
+\caption{\label{fig-scatter_petal}}
+
+\end{figure}%
+
+\subsubsection{Boxplots}\label{boxplots}
+
+These plots show the distribution of each feature for different species.
+By comparing medians and ranges, we see that Setosa generally has
+smaller petals and sepals, while Virginica has the largest. This helps
+us understand the differences between species and why some features are
+better for classification.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{../results/figures/boxplots.png}
+
+}
+
+\caption{\label{fig-scatter_petal}}
+
+\end{figure}%
+
+\subsubsection{Correlation Heatmap}\label{correlation-heatmap}
+
+This plot shows how the numeric features are related to each other. We
+can see that petal length and petal width are highly correlated, while
+sepal length and sepal width have a weaker correlation. This suggests
+that petal measurements might be more useful for distinguishing species.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{../results/figures/correlation_heatmap.png}
+
+}
+
+\caption{\label{fig-scatter_petal}}
+
+\end{figure}%
+
+\section{Results \& Discussion}\label{results-discussion}
+
+In our EDA, we observed that though the pedal attributes (length and
+width) show a higher level of interspecies distinction than the sepal
+attributes, all features exhibit an adequate amount of spread to be
+considered useful for our model. Additionally, our correlation matrix
+shows that sepal attributes are indeed correlated with petal attributes,
+increasing their utility to our model. After finding no conclusive
+evidence in support of dropping features from our model, we move forward
+with the full set of features from the dataset.
+
+The next step of the process consists of splitting the data into train
+and test. In this case a 80-20\% split is being considered.
+
+As a precautinary step, it is always beneficial to run the dummy model
+on the data to get the baseline accuracy. This aids in tuning the true
+regression model being used for training and prediction so that a
+balanced train-test score can be achieved.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+& fit\_time & score\_time & test\_score & train\_score \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 0.001489 & 0.001073 & 0.333333 & 0.336842 \\
+1 & 0.001251 & 0.000986 & 0.333333 & 0.347368 \\
+2 & 0.001549 & 0.000870 & 0.333333 & 0.347368 \\
+3 & 0.001386 & 0.000847 & 0.333333 & 0.347368 \\
+4 & 0.001434 & 0.000871 & 0.347826 & 0.343750 \\
+\end{longtable}
+
+In order to insert all the columns that require column transformations
+such as the StandardScaler(), we need to obtain all the feature columns
+from the dataset
+
+\begin{verbatim}
+['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+\end{verbatim}
+
+The preprocessor is required and is a good practice before using the
+pipeline. The preprocessor consists of all the required transformations
+and the features on which they will be performed. We employ a
+classification model utilizing Logistic Regresison for this task, as we
+have a relatively small number of features in our model. This will also
+allow us to retain a higher level of interpretability in our model.
+
+To optimize the model's classification capabilities, we employ a
+randomized hyperparameter search. This will provide insight into what
+values of the C hyperparameter from logistic regression will perform
+best in our model.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+& param\_classifier\_\_C & mean\_test\_score & std\_test\_score \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+15 & 14.062606 & 0.983333 & 0.020412 \\
+1 & 78253.381859 & 0.975000 & 0.020412 \\
+17 & 8108.175729 & 0.975000 & 0.020412 \\
+3 & 1.712861 & 0.975000 & 0.033333 \\
+7 & 620.951562 & 0.975000 & 0.020412 \\
+5 & 1.905181 & 0.975000 & 0.033333 \\
+9 & 2.054645 & 0.975000 & 0.033333 \\
+16 & 3.753517 & 0.975000 & 0.033333 \\
+13 & 3.621417 & 0.975000 & 0.033333 \\
+6 & 301.128937 & 0.975000 & 0.020412 \\
+\end{longtable}
+
+We see that most of our highest-performing models have a C
+hyperparameter value in the rough range of 1.75 to 3.75, signalling that
+this is our optimal range. Next, we will test our optimized model on our
+testing data from our initial train/test data split, allowing us to
+observe how well our model generalizes to unseen data.
+
+\begin{verbatim}
+Train accuracy: 0.9831932773109243
+Test accuracy: 0.9333333333333333
+\end{verbatim}
+
+For greater context around these scores, we will plot a confusion
+matrix.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{../results/metrics/confusion_matrix.png}
+
+}
+
+\caption{\label{fig-scatter_petal}}
+
+\end{figure}%
+
+Achieving a training score of 0.98, it is evident that the model was
+able to learn the relationships between the four iris measurements.
+Additionally, the model generalizes to the unseen data quite well,
+yielding a test score of 0.9. While the discrepancy between the model's
+train and test scores elicit some concern around potential overfitting
+in the model, it is not large enough to overshadow its strong
+generalization capabilities.
+
+These findings imply that the four measured flower characteristics are
+strong predictors that could reliably enhance species identification.
+Future questions could explore whether more complex models could grow
+accuracy even further or whether certain species pairs remain more
+difficult to separate due to particular traits. Overall, it appears that
+this model is well on its way to becoming a strong tool for iris
+identification.
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-Joly_et_al_2014}
+Joly, Alexis, Hervé Goëau, Pierre Bonnet, Vera Bakić, Julien Barbe,
+Souheil Selmi, Itheri Yahiaoui, Jennifer Carré, Elise Mouysset, and
+Jean-François et al. Molino. 2014. {``Interactive Plant Identification
+Based on Social Image Data.''} \emph{Ecological Informatics} 23
+(September): 22--34. \url{https://doi.org/10.1016/j.ecoinf.2013.07.006}.
+
+\bibitem[\citeproctext]{ref-Thyagharajan_Kiruba_2018}
+Thyagharajan, K. K., and I. Kiruba Raji. 2018. {``A Review of Visual
+Descriptors and Classification Techniques Used in Leaf Species
+Identification.''} \emph{Archives of Computational Methods in
+Engineering} 26 (4): 933--60.
+\url{https://doi.org/10.1007/s11831-018-9266-3}.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

@@ -30,7 +30,7 @@ def main(input, output_dir):
         height=400,
         title="Petal Length vs Petal Width by Species"
     ).interactive()
-    scatter_path = os.path.join(output_dir, "scatter_petal.html")
+    scatter_path = os.path.join(output_dir, "scatter_petal.png")
     scatter.save(scatter_path)
     print(f"Scatter plot saved to: {scatter_path}")
 
@@ -47,7 +47,7 @@ def main(input, output_dir):
     ).facet(
         row=alt.Row("feature:N", title="Feature")
     )
-    boxplot_path = os.path.join(output_dir, "boxplots.html")
+    boxplot_path = os.path.join(output_dir, "boxplots.png")
     boxplot.save(boxplot_path)
     print(f"Boxplots saved to: {boxplot_path}")
 
@@ -77,7 +77,7 @@ def main(input, output_dir):
         )
     )
 
-    heatmap_path = os.path.join(output_dir, "correlation_heatmap.html")
+    heatmap_path = os.path.join(output_dir, "correlation_heatmap.png")
     (heatmap + text).save(heatmap_path)
     print(f"Correlation heatmap saved to: {heatmap_path}")
 
