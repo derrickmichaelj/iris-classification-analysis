@@ -1,14 +1,12 @@
-version: "3.9"
-
 services:
-  jupyter:
-    build: .
+  dockerlock:
+    image: derrickj11/dsci-522-group-project:1c69433
     ports:
-      - "8888:8888"               # Expose container port 8888 to host
+      - "8888:8888"
     volumes:
-      - ./:/home/jovyan/work       # Mount repo to container
-    working_dir: /home/jovyan/work
+      - ./:/work
+    working_dir: /work
     container_name: dsci522_jupyter
     environment:
-      JUPYTER_ENABLE_LAB: "yes"
-    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+      PASSWORD: dsci522
+    command: start-notebook.py
