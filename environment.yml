@@ -13,6 +13,8 @@ dependencies:
   - pandera
   - jupyterlab
   - ipykernel
+  - click
+  - vl-convert-python
   - pip
   - pip:
       - ucimlrepo

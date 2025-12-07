@@ -1,0 +1,276 @@
+---
+title: Infering Relationships Between Iris Species and their Characteristics
+author: Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick Jaskiel
+format: html
+toc: true
+toc-depth: 3
+toc-title: Table of Contents
+bibliography: references.bib
+execute:
+  echo: false
+jupyter:
+  kernelspec:
+    display_name: 522 Group Project Env
+    language: python
+    name: 522_group_project_env
+---
+
+```{python}
+#| scrolled: true
+# Package Imports
+import pandas as pd
+import altair as alt
+import sys
+sys.path.append("../src")  
+alt.renderers.enable('default')
+import matplotlib.pyplot as plt
+# from ucimlrepo import fetch_ucirepo
+from sklearn.compose import make_column_transformer
+from sklearn.model_selection import train_test_split
+from sklearn import datasets
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.dummy import DummyClassifier
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import loguniform
+from sklearn.metrics import ConfusionMatrixDisplay
+```
+
+```{python}
+#| output: false
+
+# Data Import
+from data_validation_iris import validate_iris_dataframe
+
+iris = pd.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv")
+
+iris = validate_iris_dataframe(iris)
+
+
+# Check NA values, head, tail
+display(
+   iris.isna().sum(),
+   iris.head(),
+   iris.tail(),
+   iris.shape,
+   iris.dtypes,
+   iris.describe()
+)
+```
+
+```{python}
+#| output: false
+
+# Dropping species column to create feature matrix and target vector
+
+X = iris.drop(columns = ['species'], axis=1)
+y = iris['species']
+```
+
+```{python}
+#| output: false
+
+# Train-Test Split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=522)
+```
+
+```{python}
+#| output: false
+
+# Using dummy classifier to test and get the worst baseline accuracy
+dummy = DummyClassifier(strategy="most_frequent")   
+cv_dummyscore = cross_validate(dummy, X_train, y_train, cv=5, return_train_score=True)
+cv_dummyscore_df = pd.DataFrame(cv_dummyscore)
+cv_dummyscore_df
+```
+
+```{python}
+#| output: false
+
+features = X_train.columns.tolist()
+features
+```
+
+```{python}
+#| output: false
+
+preprocessor = make_column_transformer(
+    (StandardScaler(), features)
+)
+
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('classifier', LogisticRegression())
+])
+```
+
+```{python}
+#| output: false
+
+# Hyperparameter tuning
+param_grid = {
+    "classifier__C": loguniform(1e-6, 1e6)
+}
+
+rand_search = RandomizedSearchCV(
+    pipeline,
+    param_grid,
+    n_iter = 50,
+    cv = 5,
+    n_jobs = -1,
+    random_state = 522
+)
+
+rand_search.fit(X_train, y_train)
+
+results = pd.DataFrame(rand_search.cv_results_)
+results = results.sort_values(by = 'mean_test_score', ascending = False)
+
+display(results.head(10)[[
+    'param_classifier__C',
+    'mean_test_score',
+    'std_test_score'
+]])
+```
+
+```{python}
+#| output: false
+
+best_model = rand_search.best_estimator_
+print("Train accuracy:", best_model.score(X_train, y_train))
+print("Test accuracy:", best_model.score(X_test, y_test))
+```
+
+# Summary
+
+The Iris dataset consists of 150 samples of iris flowers, divided evenly into three species: setosa, versicolor, and virginica (50 samples each). Each observation contains four continuous morphological measurements: `sepal_length`, `sepal_width`, `petal_length`, and `petal_width`. All four features are recorded in centimetres. The dataset is well structured, with no missing values, and includes a balanced class distribution across the three species. A preliminary summary of the numerical features shows that values vary substantially between species; for example, setosa flowers tend to have smaller petal lengths (around 1.4 cm), while virginica flowers exhibit much larger petal dimensions. These clear differences suggest that the dataset is suitable for classification tasks, making it an ideal test case for evaluating machine learning models. In this project, we have developed a classification model using **Logistic Regression** to predict Iris flower species. based on four measurements: sepal length, sepal width, petal length, and petal width. A baseline **DummyClassifier** produced a test accuracy of approximately `{python} round(float(cv_dummyscore_df["test_score"].mean()), 3)` across cross-validation folds, confirming that the data is not trivially predictable and that a more sophisticated model is required. Before training the model, all numerical features were scaled using StandardScaler, ensuring that differences in measurement units did not disproportionately influence the classifier. After scaling features and performing hyperparameter tuning weith randomized search, our final **Logistic Regression classifier** achieved strong performance, with a training accuracy of `{python} round(best_model.score(X_train, y_train), 3)` and a test accuracy of `{python} round(best_model.score(X_test, y_test), 3)`. The confusion matrix indicates that the most predicitons were correct, with only a small number of misclassifications occuring between the **versicolor** and **virginica** classes reflectiong their natural feature similarity. Overall, the model demostrated high predicive performance on unseen data, though further refinement or more advnaced model could help reduce raiming classification overlap. 
+
+# Introduction
+
+A thorough understanding of the geographic distribution and traits of plants is invaluable to the development of sustainable agriculture and biodiversity conservation (@Joly_et_al_2014). Thus, as the demand for information and need for biodiversity grow, it becomes even more important that this task is one that can be performed efficiently and accurately (@Thyagharajan_Kiruba_2018). One promising method through which this could be accomplished is machine learning classification.
+
+The goal of this project is to explore how different physical measurements of iris flowers relate to species identity and to build a classification model that can accurately predict species based on these characteristics. The Iris dataset is a well-known benchmark in machine learning because it is clean, balanced, and contains clear biological differences among species. Each flower is described by four continuous measurements—sepal length, sepal width, petal length, and petal width—and belongs to one of three species: setosa, versicolor, or virginica.
+
+Because these measurements reflect real morphological differences, the dataset provides a natural opportunity to study the relationship between flower structure and species classification. It also allows us to evaluate and compare machine learning models in a controlled environment. In this project, we perform exploratory data analysis to understand feature distributions and correlations, then develop a predictive model using Logistic Regression. We also include a DummyClassifier as a baseline to ensure that model performance improvements are meaningful rather than accidental.
+
+Finally, we evaluate the model using cross-validation, hyperparameter tuning, and confusion-matrix diagnostics. This approach allows us to understand both how well the model learns from the training data and how reliably it generalizes to unseen samples. Overall, this project demonstrates the connection between biological measurements and species identity while providing a clear example of building, tuning, and interpreting a supervised classification model.
+
+# Methods
+
+## Data
+
+The dataset used in this project is the classic Iris flower dataset originally collected by the British statistician and biologist Ronald A. Fisher in 1936 as part of his research on linear discriminant analysis. It is publicly available through the UCI Machine Learning Repository, where it is widely used as a benchmark dataset for classification tasks. Each row in the dataset represents physical measurements of a single iris flower, including four numerical attributes sepal length, sepal width, petal length, and petal width recorded in centimetres. Alongside these measurements, each observation is labelled with one of three species (Iris setosa, Iris versicolor, or Iris virginica), originally identified by botanists through morphological characteristics. This dataset is clean, balanced, and well-suited for evaluating machine learning classification algorithms.
+@iris_1936
+
+## Analysis
+
+In this step, we load the Iris dataset from an online source into a pandas DataFrame. We check for missing values to ensure the dataset is complete, view the first and last few rows to get a sense of the data structure, and look at the shape and data types to understand what kind of data we are working with.
+
+```{python}
+#| label: tbl-description
+#| tbl-cap: Summary Statistics
+
+display(iris.describe())
+```
+
+### Data validation checks
+
+- Correct data file format
+  
+- Correct column names as per schema
+  
+- No empty observations
+  
+- Missingness within expected thresholds
+  
+- Correct data types for each column
+  
+- No duplicate observations
+
+- Values within expected ranges / valid categories
+
+### Insights from Data
+
+From the above code cells, we can see:
+
+- The dataset has 150 rows and 5 columns.
+
+- There are no missing values, so the data is complete.
+
+- The dataset contains three species: Setosa, Versicolor, and Virginica.
+
+- Petal measurements show the strongest separation between species.
+
+- Setosa is clearly distinct, while Versicolor and Virginica overlap somewhat.
+
+- Sepal measurements show smaller differences and are less useful for distinguishing species.
+
+### Scatter plot
+
+This plot shows how the species are separated based on petal measurements. The three species form distinct clusters, indicating that these two features are good for classification. It also shows that Setosa is well-separated, while Versicolor and Virginica have some overlap.
+
+![](../results/figures/scatter_petal.png){#fig-scatter_petal width=80%}
+
+### Boxplots
+
+These plots show the distribution of each feature for different species. By comparing medians and ranges, we see that Setosa generally has smaller petals and sepals, while Virginica has the largest. This helps us understand the differences between species and why some features are better for classification.
+
+![](../results/figures/boxplots.png){#fig-boxplots width=60%}
+
+### Correlation Heatmap
+
+This plot shows how the numeric features are related to each other. We can see that petal length and petal width are highly correlated, while sepal length and sepal width have a weaker correlation. This suggests that petal measurements might be more useful for distinguishing species.
+
+![](../results/figures/correlation_heatmap.png){#fig-correlation_heatmap width=60%}
+
+# Results & Discussion
+
+In our EDA, we observed in @fig-scatter_petal and @fig-boxplots that though the pedal attributes (length and width) show a higher level of interspecies distinction than the sepal attributes, all features exhibit an adequate amount of spread to be considered useful for our model. Additionally, @fig-correlation_heatmap shows that sepal attributes are indeed correlated with petal attributes, increasing their utility to our model. After finding no conclusive evidence in support of dropping features from our model, we move forward with the full set of features from the dataset.
+
+The next step of the process consists of splitting the data into train and test. In this case a 80-20% split is being considered.
+
+As a precautinary step, it is always beneficial to run the dummy model on the data to get the baseline accuracy. This aids in tuning the true regression model being used for training and prediction so that a balanced train-test score can be achieved.
+
+```{python}
+#| label: tbl-dummy
+#| tbl-cap: Dummy Classifier CV Results
+
+cv_dummyscore_df
+```
+
+As is seen in @tbl-dummy, the dummy model is quite ineffective when it comes to prediction in this case. This model predicts the same class each time and our data contains three classes that occur at similar frequencies. Thus, we can conclude that this is insufficient for fitting our data and begin the process of constructing a more complex model.
+
+In order to insert all the columns that require column transformations such as the StandardScaler(), we need to obtain all the feature columns from the dataset
+
+The preprocessor is required and is a good practice before using the pipeline. The preprocessor consists of all the required transformations and the features on which they will be performed. We employ a classification model utilizing Logistic Regresison for this task, as we have a relatively small number of features in our model. This will also allow us to retain a higher level of interpretability in our model.
+
+To optimize the model’s classification capabilities, we employ a randomized hyperparameter search. This will provide insight into what values of the C hyperparameter from logistic regression will perform best in our model.
+
+```{python}
+#| label: tbl-random_search
+#| tbl-cap: Top Randomized Search Hyperparameters
+
+display(results.head(10)[[
+    'param_classifier__C',
+    'mean_test_score',
+    'std_test_score'
+]])
+```
+
+We see that most of our highest-performing models have a C hyperparameter value in the rough range of 1.75 to 3.75, signalling that this is our optimal range. Next, we will test our optimized model on our testing data from our initial train/test data split, allowing us to observe how well our model generalizes to unseen data.
+
+```{python}
+print("Train accuracy:", best_model.score(X_train, y_train))
+print("Test accuracy:", best_model.score(X_test, y_test))
+```
+
+For greater context around these scores, we will plot a confusion matrix.
+
+![](../results/metrics/confusion_matrix.png){#fig-confusion_matrix width=80%}
+
+Achieving a training score of `{python} round(best_model.score(X_train, y_train), 3)`, it is evident that the model was able to learn the relationships between the four iris measurements. Additionally, the model generalizes to the unseen data quite well, yielding a test score of `{python} round(best_model.score(X_test, y_test), 3)`. While the discrepancy between the model's train and test scores elicit some concern around potential overfitting in the model, it is not large enough to overshadow its strong generalization capabilities.
+
+These findings imply that the four measured flower characteristics are strong predictors that could reliably enhance species identification. Future questions could explore whether more complex models could grow accuracy even further or whether certain species pairs remain more difficult to separate due to particular traits. Overall, it appears that this model is well on its way to becoming a strong tool for iris identification.
