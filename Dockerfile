@@ -15,10 +15,3 @@ RUN conda install -n base -c conda-forge conda-lock -y \
     && fix-permissions "${CONDA_DIR}" \
     && fix-permissions "/home/${NB_USER}"
 
-# Only now make the conda env default
-SHELL ["conda", "run", "-n", "522_group_project_env", "/bin/bash", "-c"]
-
-# Copy project files
-COPY . /home/jovyan/work
-WORKDIR /home/jovyan/work
-
