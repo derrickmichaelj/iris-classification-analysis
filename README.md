@@ -153,7 +153,7 @@ Access JupyterLab at `http://localhost:8888`. To stop the container, press `Ctrl
 ### Updating the Container
 
 1. Add new dependencies to the `environment.yml` file and push to a new branch in the repository  
-2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file  
+2. Run `conda-lock lock -f environment.yml --platform linux-64 --platform osx-64 --platform osx-arm64 --platform win-64` to update the `conda-linux-64.lock` file  
 3. Update the Dockerfile locally and test it to make sure that it builds/runs properly  
 4. Push these changes to your branch, the updated Docker image will then be created and pushed to DockerHub automatically  
 5. Create a pull request to merge the changes into the main branch  
