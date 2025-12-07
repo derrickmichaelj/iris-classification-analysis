@@ -10,7 +10,7 @@ RUN apt-get update \
 USER ${NB_USER}
 
 # Copy the conda-lock file (make sure it’s the correct platform)
-COPY conda-linux-64.lock /tmp/conda-lock.yml
+COPY conda-lock.yml /tmp/conda-lock.yml
 
 # Install mamba in base (needed for conda-lock)
 RUN conda install mamba -n base -c conda-forge -y
