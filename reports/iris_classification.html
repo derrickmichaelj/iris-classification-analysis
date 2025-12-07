@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick Jaskiel">
+<meta name="author" content="Manikanth Goud Gurujala, Aitong Wu, Sidharth Malik, Derrick Jaskiel">
 
 <title>Infering Relationships Between Iris Species and their Characteristics</title>
 <style>
@@ -52,10 +52,10 @@ div.csl-indent {
 <script src="iris_classification_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="iris_classification_files/libs/quarto-html/anchor.min.js"></script>
 <link href="iris_classification_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="iris_classification_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="iris_classification_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="iris_classification_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="iris_classification_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="iris_classification_files/libs/bootstrap/bootstrap-51e30cad01f5babb9a00ce60a8edf041.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="iris_classification_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -103,7 +103,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick Jaskiel </p>
+             <p>Manikanth Goud Gurujala, Aitong Wu, Sidharth Malik, Derrick Jaskiel </p>
           </div>
   </div>
     
@@ -250,13 +250,13 @@ Table&nbsp;1: Summary Statistics
 <section id="scatter-plot" class="level3">
 <h3 class="anchored" data-anchor-id="scatter-plot">Scatter plot</h3>
 <p>This plot shows how the species are separated based on petal measurements. The three species form distinct clusters, indicating that these two features are good for classification. It also shows that Setosa is well-separated, while Versicolor and Virginica have some overlap.</p>
-<div id="fig-scatter_petal" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%">
+<div id="fig-scatter_petal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter_petal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/scatter_petal.png" id="fig-scatter_petal" class="img-fluid figure-img" style="width:80.0%">
+<img src="../results/figures/scatter_petal.png" class="img-fluid figure-img" style="width:80.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-scatter_petal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter_petal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Petal Width vs Petal Length
 </figcaption>
 </figure>
 </div>
@@ -264,13 +264,13 @@ Figure&nbsp;1
 <section id="boxplots" class="level3">
 <h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
 <p>These plots show the distribution of each feature for different species. By comparing medians and ranges, we see that Setosa generally has smaller petals and sepals, while Virginica has the largest. This helps us understand the differences between species and why some features are better for classification.</p>
-<div id="fig-boxplots" class="quarto-float quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-boxplots" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-boxplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/boxplots.png" id="fig-boxplots" class="img-fluid figure-img" style="width:60.0%">
+<img src="../results/figures/boxplots.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-boxplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Comparison of Different Feature Means by Species
 </figcaption>
 </figure>
 </div>
@@ -278,13 +278,13 @@ Figure&nbsp;2
 <section id="correlation-heatmap" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-heatmap">Correlation Heatmap</h3>
 <p>This plot shows how the numeric features are related to each other. We can see that petal length and petal width are highly correlated, while sepal length and sepal width have a weaker correlation. This suggests that petal measurements might be more useful for distinguishing species.</p>
-<div id="fig-correlation_heatmap" class="quarto-float quarto-figure quarto-figure-center anchored" width="60%">
+<div id="fig-correlation_heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation_heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/correlation_heatmap.png" id="fig-correlation_heatmap" class="img-fluid figure-img" style="width:60.0%">
+<img src="../results/figures/correlation_heatmap.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-correlation_heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation_heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Correlation Map
 </figcaption>
 </figure>
 </div>
@@ -303,7 +303,7 @@ Figure&nbsp;3
 Table&nbsp;2: Dummy Classifier CV Results
 </figcaption>
 <div aria-describedby="tbl-dummy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -320,36 +320,36 @@ Table&nbsp;2: Dummy Classifier CV Results
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>0.001773</td>
-<td>0.001214</td>
+<td>0.000342</td>
+<td>0.000400</td>
 <td>0.333333</td>
 <td>0.336842</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>0.001351</td>
-<td>0.001145</td>
+<td>0.000270</td>
+<td>0.000259</td>
 <td>0.333333</td>
 <td>0.347368</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>0.002616</td>
-<td>0.001007</td>
+<td>0.000302</td>
+<td>0.000282</td>
 <td>0.333333</td>
 <td>0.347368</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>0.001872</td>
-<td>0.001668</td>
+<td>0.000334</td>
+<td>0.000374</td>
 <td>0.333333</td>
 <td>0.347368</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>0.001209</td>
-<td>0.001253</td>
+<td>0.000279</td>
+<td>0.000253</td>
 <td>0.347826</td>
 <td>0.343750</td>
 </tr>
@@ -394,56 +394,56 @@ Table&nbsp;3: Top Randomized Search Hyperparameters
 <td>0.020412</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>78253.381859</td>
-<td>0.975000</td>
-<td>0.020412</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">17</th>
-<td>8108.175729</td>
-<td>0.975000</td>
-<td>0.020412</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1.712861</td>
+<th data-quarto-table-cell-role="th">25</th>
+<td>2.905520</td>
 <td>0.975000</td>
 <td>0.033333</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">7</th>
-<td>620.951562</td>
-<td>0.975000</td>
-<td>0.020412</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>1.905181</td>
-<td>0.975000</td>
-<td>0.033333</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">9</th>
-<td>2.054645</td>
-<td>0.975000</td>
-<td>0.033333</td>
-</tr>
-<tr class="even">
 <th data-quarto-table-cell-role="th">16</th>
 <td>3.753517</td>
 <td>0.975000</td>
 <td>0.033333</td>
 </tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">13</th>
-<td>3.621417</td>
+<tr class="even">
+<th data-quarto-table-cell-role="th">45</th>
+<td>248022.028852</td>
 <td>0.975000</td>
-<td>0.033333</td>
+<td>0.020412</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">37</th>
+<td>592.208414</td>
+<td>0.975000</td>
+<td>0.020412</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">6</th>
-<td>301.128937</td>
+<th data-quarto-table-cell-role="th">35</th>
+<td>316238.424734</td>
+<td>0.975000</td>
+<td>0.020412</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">33</th>
+<td>131.405800</td>
+<td>0.975000</td>
+<td>0.020412</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">32</th>
+<td>13702.373949</td>
+<td>0.975000</td>
+<td>0.020412</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">30</th>
+<td>140686.472176</td>
+<td>0.975000</td>
+<td>0.020412</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">28</th>
+<td>391.728683</td>
 <td>0.975000</td>
 <td>0.020412</td>
 </tr>
@@ -457,20 +457,20 @@ Table&nbsp;3: Top Randomized Search Hyperparameters
 </div>
 </div>
 <p>We see that most of our highest-performing models have a C hyperparameter value in the rough range of 1.75 to 3.75, signalling that this is our optimal range. Next, we will test our optimized model on our testing data from our initial train/test data split, allowing us to observe how well our model generalizes to unseen data.</p>
-<div id="c6f40bdb" class="cell" data-execution_count="13">
+<div id="b2bfe9b0" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>Train accuracy: 0.9831932773109243
 Test accuracy: 0.9333333333333333</code></pre>
 </div>
 </div>
 <p>For greater context around these scores, we will plot a confusion matrix.</p>
-<div id="fig-confusion_matrix" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%">
+<div id="fig-confusion_matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confusion_matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/metrics/confusion_matrix.png" id="fig-confusion_matrix" class="img-fluid figure-img" style="width:80.0%">
+<img src="../results/metrics/confusion_matrix.png" class="img-fluid figure-img" style="width:80.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-confusion_matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confusion_matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Confusion Matrix
 </figcaption>
 </figure>
 </div>
@@ -542,14 +542,13 @@ Thyagharajan, K. K., and I. Kiruba Raji. 2018. <span>“A Review of Visual Descr
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

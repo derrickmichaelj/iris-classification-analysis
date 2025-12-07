@@ -1,6 +1,6 @@
 ---
 title: Infering Relationships Between Iris Species and their Characteristics
-author: Manikanth Goud Gurujala, Aitong Wu, Siharth Malik, Derrick Jaskiel
+author: Manikanth Goud Gurujala, Aitong Wu, Sidharth Malik, Derrick Jaskiel
 format: html
 toc: true
 toc-depth: 3
@@ -212,19 +212,19 @@ From the above code cells, we can see:
 
 This plot shows how the species are separated based on petal measurements. The three species form distinct clusters, indicating that these two features are good for classification. It also shows that Setosa is well-separated, while Versicolor and Virginica have some overlap.
 
-![](../results/figures/scatter_petal.png){#fig-scatter_petal width=80%}
+![Petal Width vs Petal Length](../results/figures/scatter_petal.png){#fig-scatter_petal width=80%}
 
 ### Boxplots
 
 These plots show the distribution of each feature for different species. By comparing medians and ranges, we see that Setosa generally has smaller petals and sepals, while Virginica has the largest. This helps us understand the differences between species and why some features are better for classification.
 
-![](../results/figures/boxplots.png){#fig-boxplots width=60%}
+![Comparison of Different Feature Means by Species](../results/figures/boxplots.png){#fig-boxplots width=60%}
 
 ### Correlation Heatmap
 
 This plot shows how the numeric features are related to each other. We can see that petal length and petal width are highly correlated, while sepal length and sepal width have a weaker correlation. This suggests that petal measurements might be more useful for distinguishing species.
 
-![](../results/figures/correlation_heatmap.png){#fig-correlation_heatmap width=60%}
+![Correlation Map](../results/figures/correlation_heatmap.png){#fig-correlation_heatmap width=60%}
 
 # Results & Discussion
 
@@ -269,7 +269,7 @@ print("Test accuracy:", best_model.score(X_test, y_test))
 
 For greater context around these scores, we will plot a confusion matrix.
 
-![](../results/metrics/confusion_matrix.png){#fig-confusion_matrix width=80%}
+![Confusion Matrix](../results/metrics/confusion_matrix.png){#fig-confusion_matrix width=80%}
 
 Achieving a training score of `{python} round(best_model.score(X_train, y_train), 3)`, it is evident that the model was able to learn the relationships between the four iris measurements. Additionally, the model generalizes to the unseen data quite well, yielding a test score of `{python} round(best_model.score(X_test, y_test), 3)`. While the discrepancy between the model's train and test scores elicit some concern around potential overfitting in the model, it is not large enough to overshadow its strong generalization capabilities.
 
