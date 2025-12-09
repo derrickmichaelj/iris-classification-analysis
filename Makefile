@@ -1,43 +1,52 @@
-# DSCI 522 Project Makefile
+# DSCI 522 Iris project Makefile
 
-# Default target
-all: download process eda model
+PYTHON         = python
 
-# Variables
-PYTHON = conda run -n 522_group_project_env python
+RAW_DATA       = data/raw/iris.csv
+PROCESSED_DATA = data/processed/iris_clean.csv
 
-RAW_DATA=data/raw/iris.csv
-PROCESSED_DATA=data/processed/iris_clean.csv
-FIGURES_DIR=results/figures
-METRICS_DIR=results/metrics
+FIGURES_DIR    = results/figures
+METRICS_DIR    = results/metrics
 
-# Ensure output directories exist
+FIGURES        = $(FIGURES_DIR)/scatter_petal.png \
+                 $(FIGURES_DIR)/boxplots.png \
+                 $(FIGURES_DIR)/correlation_heatmap.png
+
+MODEL_ARTIFACT = $(METRICS_DIR)/logreg_model.pickle
+
+REPORT_QMD     = reports/iris_classification.qmd
+REPORT_HTML    = reports/iris_classification.html
+
 $(shell mkdir -p data/raw data/processed $(FIGURES_DIR) $(METRICS_DIR))
 
-# 1. Download raw data
-download:
-	@echo "Running download script..."
-	$(PYTHON) src/download.py --output $(RAW_DATA)
+all: $(REPORT_HTML)
 
-# 2. Process / clean & validate data
-process:
-	@echo "Running data validation and cleaning script..."
-	$(PYTHON) src/process.py --input $(RAW_DATA) --output $(PROCESSED_DATA)
+$(REPORT_HTML): $(REPORT_QMD) $(FIGURES) $(MODEL_ARTIFACT)
+	quarto render $(REPORT_QMD) --to html
 
-# 3. Run EDA
-eda:
-	@echo "Running EDA script..."
+$(FIGURES): $(PROCESSED_DATA) src/eda.py
 	$(PYTHON) src/eda.py --input $(PROCESSED_DATA) --output-dir $(FIGURES_DIR)
 
-# 4. Train model and save metrics
-model:
-	@echo "Running modeling script..."
+$(MODEL_ARTIFACT): $(PROCESSED_DATA) src/model.py
 	$(PYTHON) src/model.py --input $(PROCESSED_DATA) --output-dir $(METRICS_DIR)
 
-# 5. Clean intermediate and output files, but keep folders
+$(PROCESSED_DATA): $(RAW_DATA) src/process.py src/data_validation_iris.py
+	$(PYTHON) src/process.py --input $(RAW_DATA) --output $(PROCESSED_DATA)
+
+$(RAW_DATA): src/download.py
+	$(PYTHON) src/download.py --output $(RAW_DATA)
+
+.PHONY: clean
 clean:
-	@echo "Cleaning up all outputs (keeping folders)..."
+	@echo "Cleaning generated data, results and report..."
 	rm -rf data/raw/* data/processed/*
 	rm -rf results/figures/* results/metrics/*
+	rm -f $(REPORT_HTML)
 
-.PHONY: all download process eda model clean
+.PHONY: data eda model report
+data: $(PROCESSED_DATA)
+eda: $(FIGURES)
+model: $(MODEL_ARTIFACT)
+report: $(REPORT_HTML)
+
+.PHONY: all
