@@ -99,22 +99,7 @@ You must have Docker Desktop installed and running on your system.
 
 ## How to Run the container 
 
-**Option 1: Start the analysis environment using Docker Compose**
-
-```bash
-# Open terminal and enter the project directory
-
-# Instead of pulling and running the image manually, use:
-docker compose up
-
-# After running docker compose up, the terminal will display a link that looks like:
-# (http://127.0.0.1:8888/lab?token=...)
-
-# Click this link, or copy and paste it into your web browser.
-```
-Copy the link and paste it in the browser. 
-
-**Option 2: Run Pre-Built Image (Fastest)**  
+**Option 1: Run Pre-Built Image (Fastest)**  
 Pull the image directly from DockerHub and run the container, which will start JupyterLab on port 8888.
 
 Open Docker Desktop then run the following lines in your console to pull and run the container:
@@ -131,7 +116,7 @@ docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
 
 Once the container is running, open your web browser and navigate to the printed URL (usually `http://127.0.0.1:8888/lab?token=...`).
 
-**Option 3: Build and Run Locally (For Developers)**  
+**Option 2: Build and Run Locally (For Developers)**  
 If you need to ensure the build process or have made changes to the Dockerfile, use the `docker-compose.yml` file.
 
 ```bash
