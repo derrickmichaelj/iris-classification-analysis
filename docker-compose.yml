@@ -7,8 +7,12 @@ services:
       - "8888:8888"
     volumes:
       - ./:/work
+      - quarto_cache:/tmp/.cache   # persistent cache volume
     working_dir: /work
     container_name: dsci522_jupyter
     environment:
       PASSWORD: dsci522
     command: start-notebook.py
+
+volumes:
+  quarto_cache:
