@@ -2,21 +2,19 @@ name: 522_group_project_env
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
-  - pandas
-  - numpy
-  - scikit-learn
-  - scipy
-  - matplotlib
-  - seaborn
-  - altair
-  - pandera
-  - jupyterlab
-  - ipykernel
-  - click
-  - vl-convert-python
-  - pytest         
-  - pip
+  - python=3.11.14
+  - pandas=2.3.3
+  - numpy=2.3.5
+  - scikit-learn=1.7.2
+  - scipy=1.16.3
+  - matplotlib=3.10.8
+  - seaborn=0.13.2
+  - altair=6.0.0
+  - pandera=0.27.0
+  - jupyterlab=4.5.0
+  - ipykernel>=6.29
+  - click=8.3.1
+  - vl-convert-python=1.8.0
+  - pip=25.3
   - pip:
-      - ucimlrepo
-      - loguniform 
+      - ucimlrepo==0.0.7
