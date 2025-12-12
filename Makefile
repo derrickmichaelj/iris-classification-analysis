@@ -1,6 +1,6 @@
 # DSCI 522 Iris project Makefile
 
-PYTHON         = python
+PYTHON         = conda run -n 522_group_project_env python
 
 RAW_DATA       = data/raw/iris.csv
 PROCESSED_DATA = data/processed/iris_clean.csv
