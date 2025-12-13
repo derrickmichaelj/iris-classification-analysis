@@ -203,8 +203,9 @@ make clean
 
 #The previous command cleans all the folders, the next step is to run: 
 make all
+#make all includes re-rendering of quarto document to update the HTML file
 
-#Re-render the quarto document to update the HTML fille
+#(optional) manual command for the quarto document to update the HTML file:
 quarto render reports/iris_classification.qmd --to html
 
 #Additional Step only use if required
