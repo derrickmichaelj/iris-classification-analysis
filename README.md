@@ -281,7 +281,7 @@ All managed via: `environment.yml`, `conda-lock.yml`, and Docker.
 
 ## Licenses
 
-- This project is released under the **MIT License.**
+- This project is released under the **MIT License** and **Creative Commons Attribution 4.0 International.**
 
 ---
 
