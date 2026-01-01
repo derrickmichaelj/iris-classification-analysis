@@ -1,3 +1,12 @@
+# download.py
+# Author: Sidharth Malik
+# Date: 2025-12-10
+#
+# This script downloads the Iris dataset from scikit-learn and saves it as a CSV file.
+#
+# Usage:
+# python src/download.py --output data/raw/iris.csv
+
 import click
 import pandas as pd
 

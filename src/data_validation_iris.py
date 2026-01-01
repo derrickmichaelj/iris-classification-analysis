@@ -1,3 +1,14 @@
+# data_validation_iris.py
+# Author: Sidharth Malik
+# Date: 2025-12-10
+#
+# This module contains helper functions for data validation and quality checks.
+# Includes schema validation, duplicate/missing value checks, outlier detection,
+# species category verification, and feature-target consistency checks.
+#
+# Usage:
+# Import functions into other scripts (e.g., process.py) and call as needed.
+
 import pandas as pd
 import pandera.pandas as pa
 from pandera.pandas import Column, DataFrameSchema, Check

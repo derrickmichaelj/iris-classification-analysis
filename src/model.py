@@ -1,3 +1,16 @@
+# model.py
+# Author: Sidharth Malik
+# Date: 2025-12-10
+#
+# This script trains classification models on the Iris dataset.
+# It runs a baseline DummyClassifier and a tuned LogisticRegression model with scaling,
+# cross-validation, and hyperparameter optimization.
+# Outputs metrics, confusion matrix, and the trained model artifact to the specified directory.
+#
+# Usage:
+# python src/model.py --input data/processed/iris_clean.csv --output-dir results/metrics
+
+
 import os
 import pickle
 

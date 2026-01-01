@@ -1,3 +1,15 @@
+# process.py
+# Author: Sidharth Malik
+# Date: 2025-12-10
+#
+# This script validates and preprocesses the raw Iris dataset.
+# Checks for missing values, duplicates, outliers, and ensures feature-target consistency.
+# Saves the cleaned dataset to the specified output path.
+#
+# Usage:
+# python src/process.py --input data/raw/iris.csv --output data/processed/iris_clean.csv
+
+
 import click
 import pandas as pd
 

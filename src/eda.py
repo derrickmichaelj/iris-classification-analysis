@@ -1,3 +1,14 @@
+# eda.py
+# Author: Sidharth Malik
+# Date: 2025-12-10
+#
+# This script performs exploratory data analysis (EDA) on the cleaned Iris dataset.
+# Generates visualizations including scatter plots, boxplots, and correlation heatmaps.
+# Saves the figures to the specified output directory.
+#
+# Usage:
+# python src/eda.py --input data/processed/iris_clean.csv --output-dir results/figures
+
 import os
 
 import altair as alt
