@@ -100,30 +100,13 @@ You must have Docker Desktop installed and running on your system.
 
 ## How to Run the container 
 
-**Option 1: Run Pre-Built Image (Fastest)**  
-Pull the image directly from DockerHub and run the container, which will start JupyterLab on port 8888.
-
-Open Docker Desktop then run the following lines in your console to pull and run the container:
-
-```bash
-# 1. Pull the official, pre-built image
-docker pull derrickj11/dsci-522-group-project:latest
-
-# 2. Run the container. The '--rm' flag ensures it is cleaned up upon exit.
-# The '-p 8888:8888' maps the container's JupyterLab port to your host machine's port.
-# Upon pulling the image, run: 
-docker run -it --rm -p 8888:8888 derrickj11/dsci-522-group-project:latest
-```
-
-Once the container is running, open your web browser and navigate to the printed URL (usually `http://127.0.0.1:8888/lab?token=...`).
-
-**Option 2: Build and Run Locally (For Developers)**  
+**Build and Run Locally**  
 If you need to ensure the build process or have made changes to the Dockerfile, use the `docker-compose.yml` file.
 
 ```bash
 # Clone the repository first if you haven't already
 git clone https://github.com/derrickmichaelj/dsci-522-group-project.git
-cd dsci-522-group-project
+cd iris-classification-analysis
 
 # 1. Build the Docker image (this may take a few minutes)
 docker-compose build
@@ -132,7 +115,14 @@ docker-compose build
 docker-compose up
 ```
 
-Access JupyterLab at `http://localhost:8888`. To stop the container, press `Ctrl+C` in the terminal where `docker-compose up` is running.
+After running `docker-compose up`, JupyterLab will print a URL in the terminal.
+
+Open the **full URL including the token**, for example:
+
+http://127.0.0.1:8888/lab?token=XXXXXXXX
+
+Note: In some cases, opening `http://127.0.0.1:8888/lab` without the token will not load the page.
+Always use the URL printed in the terminal.
 
 
 
@@ -161,8 +151,8 @@ If you prefer to run the project without Docker, you can set up the environment 
 Using CLI, in your desired folder: 
 
 ```bash
-git clone https://github.com/derrickmichaelj/dsci-522-group-project.git
-cd dsci-522-group-project
+git clone https://github.com/derrickmichaelj/iris-classification-analysis.git
+cd iris-classification-analysis
 ```
 
 #### 2. Create and Activate Conda Environment:
@@ -188,13 +178,15 @@ jl
 
 #### 4. Open the Notebook
 
-In the JupyterLab interface, navigate to and open: `reports/iris_classification.ipynb`
+In the JupyterLab interface, open terminal as mentioned below.
 
 ## Follow these steps after Activating the Environment from either of the ways mentioned above:
 
 
 
 ### Running the Codes in the Command-Line of JL Docker Container or Local Development 
+
+Once JupyterLab is open, click **File -> New -> Terminal** to open a terminal inside the JupyterLab environment, and run the following commands there.
 
 ```bash
 
