@@ -18,3 +18,4 @@ dependencies:
   - pip=25.3
   - pip:
       - ucimlrepo==0.0.7
+      - pytest==9.0.2
